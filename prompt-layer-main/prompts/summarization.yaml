@@ -1,0 +1,17 @@
+
+
+prompt_id: summarization_short
+version: "1.0.0"
+description: "Create a short (max 50 words) summary for provided text."
+template: |
+  Summarize the following text in one paragraph, maximum 50 words:
+  {{ text }}
+output_instructions: |
+  Return a JSON object: { "summary": "<50-word summary>" }
+example_inputs:
+  - text: "Long article text..."
+expected_output_schema:
+  type: object
+  properties:
+    summary:
+      type: string

@@ -1,0 +1,31 @@
+
+
+prompt_id: rag_retrieve_then_generate
+version: "1.0.0"
+description: |
+  RAG: given retrieved docs and a user question, produce a concise answer and cite sources.
+template: |
+  You are an expert assistant. Use only the information in the `documents` field to answer.
+  If the answer is not in the documents, reply: "I don't know based on the provided documents."
+  Question: {{ question }}
+  Documents:
+  {{#each documents}}
+  - Source: {{ this.source }}
+    Content: {{ this.text }}
+  {{/each}}
+output_instructions: |
+  Return a JSON object with keys: answer (string), sources (array of source ids).
+example_inputs:
+  - question: "What causes X?"
+    documents:
+      - source: "doc1"
+        text: "X occurs when..."
+expected_output_schema:
+  type: object
+  properties:
+    answer:
+      type: string
+    sources:
+      type: array
+      items:
+        type: string
